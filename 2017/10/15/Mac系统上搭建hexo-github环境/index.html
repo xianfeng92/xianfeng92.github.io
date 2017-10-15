@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2017/10/15/Mac系统上搭建hexo-github环境/localhost.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/10/15/Mac系统上搭建hexo-github环境/xianfeng.jpg">
-<meta property="og:updated_time" content="2017-10-15T12:22:54.425Z">
+<meta property="og:updated_time" content="2017-10-15T13:40:39.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac系统上搭建hexo-github环境">
 <meta name="twitter:description" content="1. Hexo简介   Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：     12Node.jsGit 2. nodejs和git的安装   Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平">
@@ -336,16 +336,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/15/Mac系统上搭建hexo-github环境/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/15/Mac系统上搭建hexo-github环境/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -386,7 +376,40 @@
 <p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/localhost.jpg" alt=""></p>
 <p>Ps.安装好了hexo以后,注册一个github账号,创建一个repo,将hexo和repo关联起来.最后效果图如下:</p>
 <p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/xianfeng.jpg" alt=""></p>
-<h1 id="4-个性化Blog"><a href="#4-个性化Blog" class="headerlink" title="4. 个性化Blog"></a>4. 个性化Blog</h1><h2 id="1-next主题"><a href="#1-next主题" class="headerlink" title="1. next主题"></a>1. next主题</h2>
+<h1 id="4-个性化Blog"><a href="#4-个性化Blog" class="headerlink" title="4. 个性化Blog"></a>4. 个性化Blog</h1><p>在Hexo中有两份主要的配置文件,其名称都为_config.yml.其中,一份位于站点根目录下,主要包含Hexo本身的配置(站点配置文件);另一份位于主题目录下,这份配置由主题作者提供,主要用于配置主题相关的选项(主题配置文件).</p>
+<h2 id="1-Next主题"><a href="#1-Next主题" class="headerlink" title="1. Next主题"></a>1. Next主题</h2><p>Next主题的安装:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> your-hexo-site</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next theme</div></pre></td></tr></table></figure></p>
+<p>然后在站点的配置文件中修改:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: next</div></pre></td></tr></table></figure></p>
+<h2 id="2-验证主题"><a href="#2-验证主题" class="headerlink" title="2.验证主题"></a>2.验证主题</h2><p>启动本地站点:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo c <span class="comment">#清除站点缓存</span></div><div class="line">$ hexo s</div></pre></td></tr></table></figure></p>
+<p>当命令行输出一下信息表示站点正确运行:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure></p>
+<h2 id="3-主题设定"><a href="#3-主题设定" class="headerlink" title="3.主题设定"></a>3.主题设定</h2><p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p>
+<ul>
+<li>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白.</li>
+<li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li>
+<li>Pisces - 双栏 Scheme，小家碧玉似的清新,小清新,我喜欢.</li>
+</ul>
+<p>关于博客的菜单,侧栏,站点描述等设置,可以参考:<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">http://theme-next.iissnan.com/getting-started.html</a></p>
+<h3 id="1-头像设置"><a href="#1-头像设置" class="headerlink" title="1. 头像设置"></a>1. 头像设置</h3><p>博客怎能没有一个有个性的头像呢?然而头像设置让我在折腾了好久好久,周六晚上弄到半夜四点多,最惨的是还没有弄好~醉了.具体步骤如下:</p>
+<ul>
+<li>选择一个中意头像.如:love.jpg</li>
+<li>打开主题配置文件_config.yml</li>
+<li>找到如下信息,并进行配置:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">custom_log:</div><div class="line">  enabled: ture </div><div class="line">  image: images/love.jpg <span class="comment"># 实际在image的love.jpg 要改为 avatar.gif.</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>不知道为啥要这样.</p>
+<h3 id="2-blog中图片上传"><a href="#2-blog中图片上传" class="headerlink" title="2. blog中图片上传"></a>2. blog中图片上传</h3><ul>
+<li>将主题配置文件_config.yml 里的post_asset_folder:这个选项设置为true<br>此时运行下面命令生成博客时:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo n demo</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在/source/_posts文件下除了demo.md,还会有一个demo文件夹</p>
+<ul>
+<li><p>在博客的根目录下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-asset-image --save <span class="comment"># 有点慢,耐心等待</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在demo.md中想要引入love.jpg图片时,只需要将love.jpg放到demo文件夹下,然后demo.md中写:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![你想输入的替代文字](love.jpg)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
       
     </div>
 
@@ -459,13 +482,6 @@
 
           
   <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
     
   </div>
 
@@ -579,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hexo简介"><span class="nav-number">1.</span> <span class="nav-text">1. Hexo简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-nodejs和git的安装"><span class="nav-number">2.</span> <span class="nav-text">2. nodejs和git的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装-Hexo"><span class="nav-number">3.</span> <span class="nav-text">3. 安装 Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-个性化Blog"><span class="nav-number">4.</span> <span class="nav-text">4. 个性化Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-next主题"><span class="nav-number">4.1.</span> <span class="nav-text">1. next主题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hexo简介"><span class="nav-number">1.</span> <span class="nav-text">1. Hexo简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-nodejs和git的安装"><span class="nav-number">2.</span> <span class="nav-text">2. nodejs和git的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装-Hexo"><span class="nav-number">3.</span> <span class="nav-text">3. 安装 Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-个性化Blog"><span class="nav-number">4.</span> <span class="nav-text">4. 个性化Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Next主题"><span class="nav-number">4.1.</span> <span class="nav-text">1. Next主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-验证主题"><span class="nav-number">4.2.</span> <span class="nav-text">2.验证主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-主题设定"><span class="nav-number">4.3.</span> <span class="nav-text">3.主题设定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-头像设置"><span class="nav-number">4.3.1.</span> <span class="nav-text">1. 头像设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-blog中图片上传"><span class="nav-number">4.3.2.</span> <span class="nav-text">2. blog中图片上传</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -734,41 +750,28 @@
 
   
 
-    <script type="text/javascript">
-      var disqus_shortname = 'your-disqus-shortname';
-      var disqus_identifier = '2017/10/15/Mac系统上搭建hexo-github环境/';
-
-      var disqus_title = "Mac系统上搭建hexo-github环境";
 
 
-      function run_disqus_script(disqus_script) {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
 
-      run_disqus_script('count.js');
+	
 
-      
-        var disqus_config = function () {
-            this.page.url = disqus_url;
-            this.page.identifier = disqus_identifier;
-            this.page.title = disqus_title;
-        };
-        run_disqus_script('embed.js');
-      
 
-    </script>
+
+
+
   
 
 
 
 
 
+  
 
 
+
+
+
+  
 
 
 

@@ -1,75 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title><![CDATA[Python基础]]></title>
-      <url>/2017/10/15/Python%E5%9F%BA%E7%A1%80/</url>
-      <content type="html"><![CDATA[<p>闲着无聊,整理点python基础知识,顺便也当熟悉Markdown的语法规则.ps:今天才发现利用Chrome上的LiveReload+Subline Text,可以本地实时测试博客网页,爽歪歪呀.</p>
-<h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h1><h2 id="1-Python有四种数据类型-分别为整数-长整数-浮点数以及复数"><a href="#1-Python有四种数据类型-分别为整数-长整数-浮点数以及复数" class="headerlink" title="1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数"></a>1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数</h2><h2 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2. 字符串"></a>2. 字符串</h2><ul>
-<li>python中的字符串可以用单引号或者双引号来表示</li>
-<li>字符串前面加r或者R,如字符串r”see you again \n”,则\n会显示出来</li>
-<li>对于“see” “you” “again”,python会将其自动转换为“see you again”</li>
-<li>类似于Java,Python中字符串也是不可变的</li>
-</ul>
-<h2 id="3-对象"><a href="#3-对象" class="headerlink" title="3.对象"></a>3.对象</h2><p>python中Everything is object</p>
-<h2 id="4-缩进"><a href="#4-缩进" class="headerlink" title="4.缩进"></a>4.缩进</h2><p>python使用4个空格来缩进代码.例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def fun(n):</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">    	<span class="built_in">print</span>(<span class="string">"the number of n ="</span>,n)</div></pre></td></tr></table></figure></p>
-<h1 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h1><p>未完,后续……</p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Mac系统上搭建hexo-github环境]]></title>
-      <url>/2017/10/15/Mac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E6%90%AD%E5%BB%BAhexo-github%E7%8E%AF%E5%A2%83/</url>
-      <content type="html"><![CDATA[<h1 id="1-Hexo简介"><a href="#1-Hexo简介" class="headerlink" title="1. Hexo简介"></a>1. Hexo简介</h1><p>   Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Node.js</div><div class="line">Git</div></pre></td></tr></table></figure></p>
-<h1 id="2-nodejs和git的安装"><a href="#2-nodejs和git的安装" class="headerlink" title="2. nodejs和git的安装"></a>2. nodejs和git的安装</h1><p>   Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O)模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的nodejs 并安装（<a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">https://nodejs.org/zh-cn/</a>).</p>
-<p>   除此之外,在Mac上还可以通过使用 Homebrew 安装 Node.js，具体命令:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ brew update</div><div class="line">$ brew install node</div></pre></td></tr></table></figure></p>
-<p>   安装后，Terminal依次输入：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node -v  </div><div class="line">$ npm -v</div></pre></td></tr></table></figure></p>
-<p>   来查看电脑上安装的版本号,确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。</p>
-<p>   如果node为旧版本，可以通过Terminal：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install -g n <span class="comment"># 管理nodejs的版本</span></div><div class="line">$ sudo n latest <span class="comment"># 升级到最新版本</span></div><div class="line">$ sudo n stable <span class="comment"># 升级到稳定版</span></div></pre></td></tr></table></figure></p>
-<p>   git的安装相对简单,在Mac上可以使用Homebrew来安装:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install git</div></pre></td></tr></table></figure></p>
-<h1 id="3-安装-Hexo"><a href="#3-安装-Hexo" class="headerlink" title="3. 安装 Hexo"></a>3. 安装 Hexo</h1><p>   所有必备的应用程序安装完成后，在终端依次输入并回车:</p>
-<p>   Terminal:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ mkdir hexo</div><div class="line">$ <span class="built_in">cd</span> /hexo</div><div class="line">$ npm install -g hexo-cli</div><div class="line">$ hexo init blog</div><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div><div class="line">$ hexo g -d  <span class="comment"># 生成静态文件并部署博客到远端（比如github, heroku等平台）</span></div></pre></td></tr></table></figure></p>
-<p>   打开浏览器，输入<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> ，看到以下页面说明hexo环境安装成功。</p>
-<p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/localhost.jpg" alt=""></p>
-<p>Ps.安装好了hexo以后,注册一个github账号,创建一个repo,将hexo和repo关联起来.最后效果图如下:</p>
-<p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/xianfeng.jpg" alt=""></p>
-<h1 id="4-个性化Blog"><a href="#4-个性化Blog" class="headerlink" title="4. 个性化Blog"></a>4. 个性化Blog</h1><h2 id="1-next主题"><a href="#1-next主题" class="headerlink" title="1. next主题"></a>1. next主题</h2>]]></content>
-      
-        
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2017/10/12/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-      
-        
-    </entry>
-    
-  
-  
+<search>
+  <entry>
+    <title><![CDATA[Python基础]]></title>
+    <url>%2F2017%2F10%2F15%2FPython%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[闲着无聊,整理点python基础知识,顺便也当熟悉Markdown的语法规则.ps:今天才发现利用Chrome上的LiveReload+Subline Text,可以本地实时测试博客网页,爽歪歪呀. 1. 基本概念1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数2. 字符串 python中的字符串可以用单引号或者双引号来表示 字符串前面加r或者R,如字符串r”see you again \n”,则\n会显示出来 对于“see” “you” “again”,python会将其自动转换为“see you again” 类似于Java,Python中字符串也是不可变的 3.对象python中Everything is object 4.缩进python使用4个空格来缩进代码.例如:123def fun(n): for i in range(n): print("the number of n =",n) 2.函数未完,后续……]]></content>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac系统上搭建hexo-github环境]]></title>
+    <url>%2F2017%2F10%2F15%2FMac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E6%90%AD%E5%BB%BAhexo-github%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[1. Hexo简介 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序： 12Node.jsGit 2. nodejs和git的安装 Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O)模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的nodejs 并安装（https://nodejs.org/zh-cn/). 除此之外,在Mac上还可以通过使用 Homebrew 安装 Node.js，具体命令: 12$ brew update$ brew install node 安装后，Terminal依次输入： 12$ node -v $ npm -v 来查看电脑上安装的版本号,确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。 如果node为旧版本，可以通过Terminal： 123$ sudo npm install -g n # 管理nodejs的版本$ sudo n latest # 升级到最新版本$ sudo n stable # 升级到稳定版 git的安装相对简单,在Mac上可以使用Homebrew来安装: 1$ brew install git 3. 安装 Hexo 所有必备的应用程序安装完成后，在终端依次输入并回车: Terminal: 1234567$ mkdir hexo$ cd /hexo$ npm install -g hexo-cli$ hexo init blog$ cd blog$ npm install$ hexo g -d # 生成静态文件并部署博客到远端（比如github, heroku等平台） 打开浏览器，输入http://localhost:4000/ ，看到以下页面说明hexo环境安装成功。 Ps.安装好了hexo以后,注册一个github账号,创建一个repo,将hexo和repo关联起来.最后效果图如下: 4. 个性化Blog在Hexo中有两份主要的配置文件,其名称都为_config.yml.其中,一份位于站点根目录下,主要包含Hexo本身的配置(站点配置文件);另一份位于主题目录下,这份配置由主题作者提供,主要用于配置主题相关的选项(主题配置文件). 1. Next主题Next主题的安装:12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next theme 然后在站点的配置文件中修改:1theme: next 2.验证主题启动本地站点:12$ hexo c #清除站点缓存$ hexo s 当命令行输出一下信息表示站点正确运行:1INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop. 3.主题设定Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是： Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白. Mist - Muse 的紧凑版本，整洁有序的单栏外观 Pisces - 双栏 Scheme，小家碧玉似的清新,小清新,我喜欢. 关于博客的菜单,侧栏,站点描述等设置,可以参考:http://theme-next.iissnan.com/getting-started.html 1. 头像设置博客怎能没有一个有个性的头像呢?然而头像设置让我在折腾了好久好久,周六晚上弄到半夜四点多,最惨的是还没有弄好~醉了.具体步骤如下: 选择一个中意头像.如:love.jpg 打开主题配置文件_config.yml 找到如下信息,并进行配置:123custom_log: enabled: ture image: images/love.jpg # 实际在image的love.jpg 要改为 avatar.gif. 不知道为啥要这样. 2. blog中图片上传 将主题配置文件_config.yml 里的post_asset_folder:这个选项设置为true此时运行下面命令生成博客时:1$ hexo n demo 在/source/_posts文件下除了demo.md,还会有一个demo文件夹 在博客的根目录下: 1$ npm install hexo-asset-image --save # 有点慢,耐心等待 在demo.md中想要引入love.jpg图片时,只需要将love.jpg放到demo文件夹下,然后demo.md中写: 1![你想输入的替代文字](love.jpg)]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F10%2F12%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
 </search>
