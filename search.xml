@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Mac上hexo安装]]></title>
+    <title></title>
     <url>%2F2017%2F10%2F13%2FMac%E4%B8%8Ahexo%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
+    <content type="text"><![CDATA[title: Mac系统上搭建hexo+github环境date: 2017-10-13 23:34:31 tags: Hexo1. HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽 的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序： Node.js Git 2. nodejs和git的安装Node.js® 是一个基于 Chrome V8 引擎的 JavaScript 运行时。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O 模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的 nodejs [链接]（https://nodejs.org/zh-cn/）并安装。还可以通过使用 Homebrew 安装 Node.js，具体命令 $ brew update $ brew install node 安装后，Terminal依次输入： $ node -v $ npm -v 确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。 如果node为旧版本，可以通过Terminal：$ sudo npm install -g n 管理nodejs版本 通过Terminal：$ sudo n latest 升级到最新版本 或者使用 $ sudo n stable 升级到稳定版 Mac：使用 Homebrew, MacPorts ：brew install git 3. 安装 Hexo所有必备的应用程序安装完成后，在终端依次输入并回车 Terminal: $ mkdir hexo $ cd /hexo $ npm install -g hexo-cli $ hexo init blog $ cd blog $ npm install $ hexo g -d # 静态文件并部署博客到远端（比如github, heroku等平台） 打开浏览器，输入 http://localhost:4000/ ，看到以下页面说明hexo环境安装成功。 ![](../../images/localhost.jpg)]]></content>
   </entry>
   <entry>
     <title><![CDATA[Hello World]]></title>
