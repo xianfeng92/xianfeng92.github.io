@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Python基础]]></title>
     <url>%2F2017%2F10%2F15%2FPython%E5%9F%BA%E7%A1%80%2F</url>
-    <content type="text"><![CDATA[闲着无聊,整理点python基础知识,顺便也当熟悉Markdown的语法规则.ps:今天才发现利用Chrome上的LiveReload+Subline Text,可以本地实时测试博客网页,爽歪歪呀. 1. 基本概念1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数2. 字符串 python中的字符串可以用单引号或者双引号来表示 字符串前面加r或者R,如字符串r”see you again \n”,则\n会显示出来 对于“see” “you” “again”,python会将其自动转换为“see you again” 类似于Java,Python中字符串也是不可变的 3.对象python中Everything is object 4.缩进python使用4个空格来缩进代码.例如:123def fun(n): for i in range(n): print(&quot;the number of n =&quot;,n) 2.函数未完,后续……]]></content>
+    <content type="text"><![CDATA[闲着无聊,整理点python基础知识,顺便也当熟悉Markdown的语法规则.ps:今天才发现利用Chrome上的LiveReload+Subline Text,可以本地实时测试博客网页,爽歪歪呀. 1. 基本概念1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数2. 字符串 python中的字符串可以用单引号或者双引号来表示 字符串前面加r或者R,如字符串r”see you again \n”,则\n会显示出来 对于“see” “you” “again”,python会将其自动转换为“see you again” 类似于Java,Python中字符串也是不可变的 3.对象python中Everything is object 4.缩进python使用4个空格来缩进代码.例如:123def fun(n): for i in range(n): print("the number of n =",n) 2.函数未完,后续……]]></content>
       <tags>
         <tag>Python</tag>
       </tags>
