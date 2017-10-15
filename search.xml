@@ -3,7 +3,10 @@
   <entry>
     <title><![CDATA[Mac系统上搭建hexo-github环境]]></title>
     <url>%2F2017%2F10%2F15%2FMac%E7%B3%BB%E7%BB%9F%E4%B8%8A%E6%90%AD%E5%BB%BAhexo-github%E7%8E%AF%E5%A2%83%2F</url>
-    <content type="text"><![CDATA[1. Hexo Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序： 12Node.jsGit 2. nodejs和git的安装 Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O)模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的nodejs 并安装（https://nodejs.org/zh-cn/). 除此之外,在Mac上还可以通过使用 Homebrew 安装 Node.js，具体命令 12$ brew update$ brew install node 安装后，Terminal依次输入： 12$ node -v $ npm -v 来查看电脑上安装的版本号,确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。 如果node为旧版本，可以通过Terminal： 123$ sudo npm install -g n # 管理nodejs的版本$ sudo n latest # 升级到最新版本$ sudo n stable # 升级到稳定版 git的安装相对简单,在Mac上可以使用Homebrew来安装: 1$ brew install git 3. 安装 Hexo 所有必备的应用程序安装完成后，在终端依次输入并回车 Terminal: 1234567$ mkdir hexo$ cd /hexo$ npm install -g hexo-cli$ hexo init blog$ cd blog$ npm install$ hexo g -d # 静态文件并部署博客到远端（比如github, heroku等平台） 打开浏览器，输入http://localhost:4000/ ，看到以下页面说明hexo环境安装成功。]]></content>
+    <content type="text"><![CDATA[1. Hexo简介 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序： 12Node.jsGit 2. nodejs和git的安装 Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O)模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的nodejs 并安装（https://nodejs.org/zh-cn/). 除此之外,在Mac上还可以通过使用 Homebrew 安装 Node.js，具体命令: 12$ brew update$ brew install node 安装后，Terminal依次输入： 12$ node -v $ npm -v 来查看电脑上安装的版本号,确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。 如果node为旧版本，可以通过Terminal： 123$ sudo npm install -g n # 管理nodejs的版本$ sudo n latest # 升级到最新版本$ sudo n stable # 升级到稳定版 git的安装相对简单,在Mac上可以使用Homebrew来安装: 1$ brew install git 3. 安装 Hexo 所有必备的应用程序安装完成后，在终端依次输入并回车: Terminal: 1234567$ mkdir hexo$ cd /hexo$ npm install -g hexo-cli$ hexo init blog$ cd blog$ npm install$ hexo g -d # 生成静态文件并部署博客到远端（比如github, heroku等平台） 打开浏览器，输入http://localhost:4000/ ，看到以下页面说明hexo环境安装成功。]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Hello World]]></title>
