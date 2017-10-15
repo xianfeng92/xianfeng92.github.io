@@ -87,14 +87,17 @@
 
 
 
+<meta name="description" content="title: Mac系统上搭建hexo+github环境date: 2017-10-13 23:34:31 tags: Hexo1. HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽 的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：    Node.js">
 <meta property="og:type" content="website">
-<meta property="og:title" content="All tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:title" content="愿历经千帆，归来仍少年">
+<meta property="og:url" content="http://yoursite.com/Mac系统上搭建hexo+github环境.html">
 <meta property="og:site_name" content="愿历经千帆，归来仍少年">
+<meta property="og:description" content="title: Mac系统上搭建hexo+github环境date: 2017-10-13 23:34:31 tags: Hexo1. HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽 的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：    Node.js">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T17:58:44.000Z">
+<meta property="og:updated_time" content="2017-10-15T06:42:04.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="All tags">
+<meta name="twitter:title" content="愿历经千帆，归来仍少年">
+<meta name="twitter:description" content="title: Mac系统上搭建hexo+github环境date: 2017-10-13 23:34:31 tags: Hexo1. HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽 的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：    Node.js">
 
 
 
@@ -122,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/Mac系统上搭建hexo+github环境.html"/>
 
 
 
@@ -132,7 +135,7 @@
   
 
   
-    All tags | 愿历经千帆，归来仍少年
+     | 愿历经千帆，归来仍少年
   
 </title>
 </head>
@@ -278,7 +281,7 @@
   <div id="posts" class="posts-expand">
   <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">All tags</h1>
+	<h1 class="post-title" itemprop="name headline"></h1>
 
 
 
@@ -286,14 +289,40 @@
 
     
     
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            暂无标签
-        </div>
-        <div class="tag-cloud-tags">
-          
-        </div>
-      </div>
+      <hr>
+<p>title: Mac系统上搭建hexo+github环境<br>date: 2017-10-13 23:34:31</p>
+<h2 id="tags-Hexo"><a href="#tags-Hexo" class="headerlink" title="tags: Hexo"></a>tags: Hexo</h2><h1 id="1-Hexo"><a href="#1-Hexo" class="headerlink" title="1. Hexo"></a>1. Hexo</h1><pre><code>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽
+的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：
+
+  Node.js
+  Git
+</code></pre><h1 id="2-nodejs和git的安装"><a href="#2-nodejs和git的安装" class="headerlink" title="2. nodejs和git的安装"></a>2. nodejs和git的安装</h1><pre><code>Node.js® 是一个基于 Chrome V8 引擎的 JavaScript 运行时。 Node.js 使用高效、轻量级的事件驱动、非阻塞 
+I/O 模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的
+nodejs [链接]（https://nodejs.org/zh-cn/）并安装。还可以通过使用 Homebrew 安装 Node.js，具体命令
+
+
+ $ brew update
+ $ brew install node 
+
+
+安装后，Terminal依次输入： $ node -v   $ npm -v  确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。
+如果node为旧版本，可以通过Terminal：$ sudo npm install -g n 管理nodejs版本
+通过Terminal：$ sudo n latest 升级到最新版本 或者使用 $ sudo n stable 升级到稳定版
+
+Mac：使用 Homebrew, MacPorts ：brew install git 
+</code></pre><h1 id="3-安装-Hexo"><a href="#3-安装-Hexo" class="headerlink" title="3. 安装 Hexo"></a>3. 安装 Hexo</h1><pre><code>所有必备的应用程序安装完成后，在终端依次输入并回车
+Terminal: 
+         $ mkdir hexo
+         $ cd /hexo
+         $ npm install -g hexo-cli
+         $ hexo init blog
+         $ cd blog
+         $ npm install
+         $ hexo g -d  # 静态文件并部署博客到远端（比如github, heroku等平台）
+
+打开浏览器，输入 http://localhost:4000/ ，看到以下页面说明hexo环境安装成功。
+           ![](../../images/localhost.jpg)
+</code></pre>
     
   </div>
 
@@ -545,9 +574,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'your-disqus-shortname';
-      var disqus_identifier = 'tags/index.html';
+      var disqus_identifier = 'Mac系统上搭建hexo+github环境.html';
 
-      var disqus_title = "All tags";
+      var disqus_title = "";
 
 
       function run_disqus_script(disqus_script) {
