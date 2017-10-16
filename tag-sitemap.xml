@@ -2,15 +2,15 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://yoursite.com/tags/Python/</loc>
-        <lastmod>2017-10-15T12:26:33.521Z</lastmod>
+        <loc>http://yoursite.com/tags/Hexo/</loc>
+        <lastmod>2017-10-15T13:40:39.009Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/Hexo/</loc>
-        <lastmod>2017-10-15T13:40:39.009Z</lastmod>
+        <loc>http://yoursite.com/tags/Python/</loc>
+        <lastmod>2017-10-16T15:05:32.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
