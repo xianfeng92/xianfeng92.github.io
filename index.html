@@ -280,6 +280,300 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/Markdown语法小记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大侠先锋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="愿历经千帆，归来仍少年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/17/Markdown语法小记/" itemprop="url">
+                  Markdown语法小记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T22:18:06+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="段落、标题、区块代码"><a href="#段落、标题、区块代码" class="headerlink" title="段落、标题、区块代码"></a>段落、标题、区块代码</h1><p>一个以上的空行则会划分出不同的段落,一般的段落不需要用空白或者换行缩进。</p>
+<p>Markdown的标题支持Setext 和atx形式的语法。Setex形式利用＝（最高节标题）和-(第二阶标题)；atx形式在行首插入１到６个＃，对应标题１到６阶。</p>
+<p>区块引用则使用email形式的’&gt;’角括号。</p>
+<h1 id="修辞和强调"><a href="#修辞和强调" class="headerlink" title="修辞和强调"></a>修辞和强调</h1><p>Markdown 使用星号（*强调内容*）和底线（_强调内容_）来标记需要强调的区段。</p>
+<blockquote>
+<ul>
+<li>And I am not hip-hop and I just not <em>Eminem</em>.</li>
+<li>And I am not hip-hop and I just not <em>Eminem</em>. 、</li>
+</ul>
+</blockquote>
+<p>用两个 * 或 _ 包起来的话，则会产生加粗的效果。</p>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>无序列表使用星号、加号和减号来做为列表的项目标记，这些符号是都可以使用的。<br>一般输出效果如下：</p>
+<blockquote>
+<ul>
+<li>eminem</li>
+<li>tupac</li>
+<li>snop dogg</li>
+</ul>
+</blockquote>
+<p>有序的列表则是使用一般的数字接着一个英文句点作为项目标记：</p>
+<blockquote>
+<ol>
+<li>tupac</li>
+<li>snop doggy</li>
+<li>eminem</li>
+</ol>
+</blockquote>
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p>Markdown 支援两种形式的链接语法： 行内 和 参考 两种形式，两种都是使用角括号来把文字转成连结。</p>
+<p>行内形式是直接在后面用括号直接接上链接.</p>
+<blockquote>
+<p>U better lose Urself in the <a href="https://xianfeng92.github.io/" target="_blank" rel="external">github</a></p>
+</blockquote>
+<p>参考形式的链接让你可以为链接定一个名称，之后你可以在文件的其他地方定义该链接的内容：<br>如下形式定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">U better lose Urself <span class="keyword">in</span> the [github][1]</div><div class="line"></div><div class="line">[1]: https://xianfeng92.github.io/</div></pre></td></tr></table></figure></p>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>图片的语法和链接很像。<br>行内形式（title 是选择性的）：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![alt text](/path/to/img.jpg <span class="string">"Title"</span>)</div></pre></td></tr></table></figure>
+<p>参考形式：</p>
+<blockquote>
+<p>![alt text][id]</p>
+<p>[id]: /path/to/img.jpg “Title”</p>
+</blockquote>
+<h1 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h1><p>Markdown 利用反斜杠来插入一些在语法中有其它意义的符号。</p>
+<h1 id="代码区域"><a href="#代码区域" class="headerlink" title="代码区域"></a>代码区域</h1><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以。</p>
+<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。</p>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大侠先锋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="愿历经千帆，归来仍少年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/17/单例模式/" itemprop="url">
+                  单例模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T22:17:26+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Singleton-Pattern"><a href="#1-Singleton-Pattern" class="headerlink" title="1.Singleton Pattern"></a>1.Singleton Pattern</h1><p>单列指的是某一种类只有一个实例，而且自行实例化并向整个系统提供这个实例。有以下三个特点：</p>
+<ul>
+<li>自行实例化，该类的构造方法为private，外界对象无法通过new实例化。</li>
+<li>提供了全局的访问方法供整个系统所使用。</li>
+<li>整个系统中只会存在一个该类的实例。</li>
+</ul>
+<h2 id="1-1-饿汉式单例"><a href="#1-1-饿汉式单例" class="headerlink" title="1.1  饿汉式单例"></a>1.1  饿汉式单例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EagerSingleton</span> </span>&#123;   </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> EagerSingleton instance = <span class="keyword">new</span> EagerSingleton();   </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EagerSingleton</span><span class="params">()</span> </span>&#123; &#125;   </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EagerSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">return</span> instance;   </div><div class="line">    &#125;     </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>当类被加载时，静态变量instance会被初始化，此时类的私有构造函数会被调用，单例类的唯一实例将被创建。</p>
+<h2 id="1-2懒汉式单例"><a href="#1-2懒汉式单例" class="headerlink" title="1.2懒汉式单例"></a>1.2懒汉式单例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span> </span>&#123;   </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton instance = <span class="keyword">null</span>;   </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span> </span>&#123; &#125;   </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123; <span class="comment">//使用synchronize确保多线程下的安全性  </span></div><div class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </div><div class="line">            instance = <span class="keyword">new</span> LazySingleton();   </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> instance;   </div><div class="line">    &#125;  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>懒汉式单例在第一次调用getInstance()方法时实例化，在类加载时并不自行实例化，这种技术又称为延迟加载(Lazy Load)技术，即需要的时候再加载实例。</p>
+<ul>
+<li>饿汉式单例类与懒汉式单例类比较：饿汉式单例在类被加载时就将自己实例化，故无需考虑多线程访问的问题，可以确保实例的唯一性；从调用速度和反应时间来说，由于单例对象从一开始就得以创建，因此要优于懒汉式单例。但是无论系统在运行时是否使用该单例对象，由于在类加载时该对象就需要创建，因此从资源利用效率角度，饿汉式不及懒汉式。而且系统加载时需要创建饿汉式单例对象，加载时间可能会比较长。懒汉式在第一次使用时创建，实现了延迟加载，但是必须处理好多线程访问的问题。无论是简单的加锁或是双重锁检查机制，都会对系统的性能产生一定影响。</li>
+</ul>
+<h2 id="1-3-双重检查锁定（Double-Check-Locking-DCL）"><a href="#1-3-双重检查锁定（Double-Check-Locking-DCL）" class="headerlink" title="1.3 双重检查锁定（Double-Check Locking,DCL）"></a>1.3 双重检查锁定（Double-Check Locking,DCL）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span> </span>&#123;   </div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> LazySingleton instance = <span class="keyword">null</span>; <span class="comment">//由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span> </span>&#123; &#125;   </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </div><div class="line">        <span class="comment">//第一重判断  </span></div><div class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </div><div class="line">            <span class="comment">//锁定代码块  </span></div><div class="line">            <span class="keyword">synchronized</span> (LazySingleton.class) &#123;  </div><div class="line">                <span class="comment">//第二重判断  </span></div><div class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </div><div class="line">                    instance = <span class="keyword">new</span> LazySingleton(); <span class="comment">// 创建单例实例  </span></div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> instance;   </div><div class="line">      &#125;  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><a href="http://www.infoq.com/cn/articles/double-checked-locking-with-delay-initialization" target="_blank" rel="external">进一步了解双重检查锁定与延迟初始化</a></p>
+<h2 id="1-4-一种更好的单例实现方法-Initialization-Demand-Holder-IoDH"><a href="#1-4-一种更好的单例实现方法-Initialization-Demand-Holder-IoDH" class="headerlink" title="1.4 一种更好的单例实现方法(Initialization Demand Holder,IoDH)"></a>1.4 一种更好的单例实现方法(Initialization Demand Holder,IoDH)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Initialization on Demand Holder  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123; &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HolderClass</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> HolderClass.instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/15/Python基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -743,7 +1037,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -754,7 +1048,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
