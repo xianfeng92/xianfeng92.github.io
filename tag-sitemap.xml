@@ -37,20 +37,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/android/</loc>
-        <lastmod>2017-10-26T23:57:54.204Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/tags/java/</loc>
-        <lastmod>2017-10-28T10:54:04.569Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/design-pattern/</loc>
         <lastmod>2017-10-28T10:55:18.937Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -58,8 +44,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/tags/java/</loc>
+        <lastmod>2017-11-12T01:06:43.535Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/tags/Android/</loc>
-        <lastmod>2017-10-28T11:52:17.722Z</lastmod>
+        <lastmod>2017-11-12T01:08:46.759Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/android/</loc>
+        <lastmod>2017-11-12T01:10:52.539Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

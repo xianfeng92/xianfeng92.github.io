@@ -1,0 +1,903 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="ServiceService通常总是称之为“后台服务”，其中“后台”一词是相对于前台而言的，具体是指其本身的运行并不依赖于用户可视的UI界面，因此，从实际业务需求上来理解，Service的适用场景应该具备以下条件： 1.并不依赖于用户可视的UI界面（当然，这一条其实也不是绝对的，如前台Service就是与Notification界面结合使用的）； 2.具有较长时间的运行特性。 Service An">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="service基础">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/service基础/index.html">
+<meta property="og:site_name" content="愿历经千帆，归来仍少年">
+<meta property="og:description" content="ServiceService通常总是称之为“后台服务”，其中“后台”一词是相对于前台而言的，具体是指其本身的运行并不依赖于用户可视的UI界面，因此，从实际业务需求上来理解，Service的适用场景应该具备以下条件： 1.并不依赖于用户可视的UI界面（当然，这一条其实也不是绝对的，如前台Service就是与Notification界面结合使用的）； 2.具有较长时间的运行特性。 Service An">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-12T01:10:52.539Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="service基础">
+<meta name="twitter:description" content="ServiceService通常总是称之为“后台服务”，其中“后台”一词是相对于前台而言的，具体是指其本身的运行并不依赖于用户可视的UI界面，因此，从实际业务需求上来理解，Service的适用场景应该具备以下条件： 1.并不依赖于用户可视的UI界面（当然，这一条其实也不是绝对的，如前台Service就是与Notification界面结合使用的）； 2.具有较长时间的运行特性。 Service An">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/12/service基础/"/>
+
+
+
+
+
+  <title> service基础 | 愿历经千帆，归来仍少年 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">愿历经千帆，归来仍少年</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/service基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大侠先锋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="愿历经千帆，归来仍少年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                service基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T09:09:10+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>Service通常总是称之为“后台服务”，其中“后台”一词是相对于前台而言的，具体是指其本身的运行并不依赖于用户可视的UI界面，因此，从实际业务需求上来理解，Service的适用场景应该具备以下条件：</p>
+<p>1.并不依赖于用户可视的UI界面（当然，这一条其实也不是绝对的，如前台Service就是与Notification界面结合使用的）；</p>
+<p>2.具有较长时间的运行特性。</p>
+<h2 id="Service-AndroidManifest-xml-声明"><a href="#Service-AndroidManifest-xml-声明" class="headerlink" title="Service AndroidManifest.xml 声明"></a>Service AndroidManifest.xml 声明</h2><p>一般而言，从Service的启动方式上，可以将Service分为Started Service和Bound Service。无论哪种具体的Service启动类型，都是通过继承Service基类自定义而来。在使用Service时，要想系统能够找到此自定义Service，无论哪种类型，都需要在AndroidManifest.xml中声明，语法格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">1 &lt;service android:enabled=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">2     android:exported=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">3     android:icon=<span class="string">"drawable resource"</span></div><div class="line">4     android:isolatedProcess=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">5     android:label=<span class="string">"string resource"</span></div><div class="line">6     android:name=<span class="string">"string"</span></div><div class="line">7     android:permission=<span class="string">"string"</span></div><div class="line">8     android:process=<span class="string">"string"</span> &gt;</div><div class="line">9     . . .</div><div class="line">10 &lt;/service&gt;</div></pre></td></tr></table></figure>
+<h2 id="Started-Service生命周期及进程相关"><a href="#Started-Service生命周期及进程相关" class="headerlink" title="Started Service生命周期及进程相关"></a>Started Service生命周期及进程相关</h2><p>1.onCreate(Client首次startService(..)) &gt;&gt; onStartCommand &gt;&gt; onStartCommand - optional … &gt;&gt; onDestroy(Client调用stopService(..))</p>
+<p>注：onStartCommand(..)可以多次被调用，onDestroy()与onCreate()想匹配，当用户强制kill掉进程时，onDestroy()是不会执行的。</p>
+<p>2.对于同一类型的Service，Service实例一次永远只存在一个，而不管Client是否是相同的组件，也不管Client是否处于相同的进程中。</p>
+<p>3.Service通过startService(..)启动Service后，此时Service的生命周期与Client本身的什么周期是没有任何关系的，只有Client调用stopService(..)或Service本身调用stopSelf(..)才能停止此Service。当然，当用户强制kill掉Service进程或系统因内存不足也可能kill掉此Service。</p>
+<p>4.Client A 通过startService(..)启动Service后,可以在其他Client（如Client B、Client C）通过调用stopService(..)结束此Service。</p>
+<p>5.Client调用stopService(..)时，如果当前Service没有启动，也不会出现任何报错或问题，也就是说，stopService(..)无需做当前Service是否有效的判断。</p>
+<p>6.startService(Intent serviceIntent)，其中的intent既可以是显式Intent，也可以是隐式Intent，当Client与Service同处于一个App时，一般推荐使用显示Intent。当处于不同App时，只能使用隐式Intent。</p>
+<p>当Service需要运行在单独的进程中，AndroidManifest.xml声明时需要通过android:process指明此进程名称，当此Service需要对其他App开放时，android:exported属性值需要设置为true(当然，在有intent-filter时默认值就是true)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">1 &lt;service</div><div class="line">2     android:name=<span class="string">".MyService"</span></div><div class="line">3     android:exported=<span class="string">"true"</span></div><div class="line">4     android:process=<span class="string">":MyCorn"</span> &gt;</div><div class="line">5     &lt;intent-filter&gt;</div><div class="line">6         &lt;action android:name=<span class="string">"com.example.androidtest.myservice"</span> /&gt;</div><div class="line">7     &lt;/intent-filter&gt;</div><div class="line">8 &lt;/service&gt;</div></pre></td></tr></table></figure>
+<h2 id="Service和Activity通信"><a href="#Service和Activity通信" class="headerlink" title="Service和Activity通信"></a>Service和Activity通信</h2><p>Service类中有一个onBind()方法就是用于和Activity建立关联的。</p>
+<h2 id="Service和Thread的关系"><a href="#Service和Thread的关系" class="headerlink" title="Service和Thread的关系"></a>Service和Thread的关系</h2><p>Thread我们大家都知道，是用于开启一个子线程，在这里去执行一些耗时操作就不会阻塞主线程的运行。<br>然而Service是运行在主线程里的，也就是说如果你在Service里编写了非常耗时的代码，程序可能就会出现ANR。Android的后台就是指，它的运行是完全不依赖UI的。即使Activity被销毁，或者程序被关闭，只要进程还在，Service就可以继续运行。比如说一些应用程序，始终需要与服务器之间始终保持着心跳连接，就可以使用Service来实现。你可能又会问，前面不是刚刚验证过Service是运行在主线程里的么？在这里一直执行着心跳连接，难道就不会阻塞主线程的运行吗？当然会，但是我们可以在Service中再创建一个子线程，然后在这里去处理耗时逻辑就没问题了。额，既然在Service里也要创建一个子线程，那为什么不直接在Activity里创建呢？这是因为Activity很难对Thread进行控制，当Activity被销毁之后，就没有任何其它的办法可以再重新获取到之前创建的子线程的实例。而且在一个Activity中创建的子线程，另一个Activity无法对其进行操作。但是Service就不同了，所有的Activity都可以与Service进行关联，然后可以很方便地操作其中的方法，即使Activity被销毁了，之后只要重新与Service建立关联，就又能够获取到原有的Service中Binder的实例。因此，使用Service来处理后台任务，Activity就可以放心地finish，完全不需要担心无法对后台任务进行控制的情况。</p>
+<p>一个比较标准的Service就可以写成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span>  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;  </div><div class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">        <span class="meta">@Override</span>  </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">            <span class="comment">// 开始执行后台任务  </span></div><div class="line">        &#125;  </div><div class="line">    &#125;).start();  </div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId);  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyBinder</span> <span class="keyword">extends</span> <span class="title">Binder</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDownload</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                <span class="comment">// 执行具体的下载任务  </span></div><div class="line">            &#125;  </div><div class="line">        &#125;).start();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="前台Service"><a href="#前台Service" class="headerlink" title="前台Service"></a>前台Service</h2><p>Service几乎都是在后台运行的，但当系统出现内存不足情况时，就有可能会回收掉正在后台运行的Service。如果你希望Service可以一直保持运行状态，而不会由于系统内存不足的原因导致被回收，就可以考虑使用前台Service。前台Service和普通Service最大的区别就在于，它会一直有一个正在运行的图标在系统的状态栏显示，下拉状态栏后可以看到更加详细的信息，非常类似于通知的效果。</p>
+<h2 id="Bound-Service"><a href="#Bound-Service" class="headerlink" title="Bound Service"></a>Bound Service</h2><p>Bound Service的主要特性在于Service的生命周期是依附于Client的生命周期的，当Client不存在时，Bound Service将执行onDestroy，同时通过Service中的Binder对象可以较为方便进行Client-Service通信。Bound Service一般使用过程如下：</p>
+<p>1.自定义Service继承基类Service，并重写onBind(Intent intent)方法，此方法中需要返回具体的Binder对象；</p>
+<p>2.Client通过实现ServiceConnection接口来自定义ServiceConnection，并通过bindService (Intent service, ServiceConnection sc, int flags)方法将Service绑定到此Client上；</p>
+<p>3.自定义的ServiceConnection中实现onServiceConnected(ComponentName name, IBinder binder)方法，获取Service端Binder实例；</p>
+<p>4.通过获取的Binder实例进行Service端其他公共方法的调用，以完成Client-Service通信；</p>
+<p>5.当Client在恰当的生命周期（如onDestroy等）时，此时需要解绑之前已经绑定的Service，通过调用函数unbindService(ServiceConnection sc)。</p>
+<p> 在Bound Service具体使用过程中，根据onBind()方法返回的Binder对象的定义方式不同，又可以将其分为以下三种方式，且每种方式具有不同的特点和适用场景：</p>
+<p> 1) Extending the Binder class<br> 这是Bound Service中最常见的一种使用方式，也是Bound Service中最简单的一种。</p>
+<p>局限：Clinet与Service必须同属于同一个进程，不能实现进程间通信（IPC）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by zhongxianfeng on 17-11-3.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"myService"</span>;</div><div class="line">    <span class="keyword">private</span> MyBinder mBinder = <span class="keyword">new</span> MyBinder();</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mBinder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MyBinder</span> <span class="keyword">extends</span> <span class="title">Binder</span></span>&#123; </div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDownload</span><span class="params">()</span> </span>&#123;</div><div class="line">            Log.d(<span class="string">"TAG"</span>, <span class="string">"startDownload() executed"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line">        Log.d(TAG, <span class="string">"onCreate:executed"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent,<span class="keyword">int</span> flags,<span class="keyword">int</span> startId)</span></span>&#123;</div><div class="line">        Log.d(TAG, <span class="string">"onStartCommand: executed"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent,flags,startId);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.onDestroy();</div><div class="line">        Log.d(TAG, <span class="string">"onDestroy: executed"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">OnClickListener</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MainActivity"</span>;</div><div class="line">    <span class="keyword">private</span> Button start_Service ;</div><div class="line">    <span class="keyword">private</span> Button destroy_Service;</div><div class="line">    <span class="keyword">private</span> Button bind_Service;</div><div class="line">    <span class="keyword">private</span> Button unbind_Service;</div><div class="line">    <span class="keyword">private</span> MyService.MyBinder myBinder;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ServiceConnection serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName componentName, IBinder iBinder)</span> </span>&#123;</div><div class="line">            myBinder = (MyService.MyBinder) iBinder;</div><div class="line">            myBinder.startDownload();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName componentName)</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Log.d(TAG, <span class="string">"onCreate: MainActivity thread id"</span>+Thread.currentThread().getId());</div><div class="line">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">        setSupportActionBar(toolbar);</div><div class="line"></div><div class="line">        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);</div><div class="line">        fab.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">                Snackbar.make(view, <span class="string">"Replace with your own action"</span>, Snackbar.LENGTH_LONG)</div><div class="line">                        .setAction(<span class="string">"Action"</span>, <span class="keyword">null</span>).show();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        start_Service = (Button)findViewById(R.id.start_Service);</div><div class="line">        destroy_Service = (Button)findViewById(R.id.destroy_Service);</div><div class="line">        unbind_Service = (Button)findViewById(R.id.unbind_Service);</div><div class="line">        bind_Service =(Button)findViewById(R.id.bind_Service);</div><div class="line"></div><div class="line">        bind_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        start_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        destroy_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        unbind_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></div><div class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></div><div class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></div><div class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></div><div class="line">        <span class="keyword">int</span> id = item.getItemId();</div><div class="line"></div><div class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></div><div class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (view.getId())&#123;</div><div class="line">            <span class="keyword">case</span> R.id.bind_Service:</div><div class="line">                Intent bindIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                bindService(bindIntent,serviceConnection,BIND_AUTO_CREATE);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.unbind_Service:</div><div class="line">                unbindService(serviceConnection);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.start_Service:</div><div class="line">                Intent startIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                startService(startIntent);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.destroy_Service:</div><div class="line">                Intent destroyIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                stopService(destroyIntent);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首次点击bind_Service按钮时，依次调用：onCreate —–&gt; onBind —–&gt;onServiceConnected方法。再次点击bindService按钮时，发现没有任何输出，说明MyService没有进行任何回调。<br>点击unbind_Service按钮进行unbindService()时，回调顺序为：onUnbind—–&gt; onDestroy方法</p>
+<p>2）Using a Messenger<br>Messenger，在此可以理解成”信使“，通过Messenger方式返回Binder对象可以不用考虑Clinet - Service是否属于同一个进程的问题，并且，可以实现Client - Service之间的双向通信。极大方便了此类业务需求的实现。</p>
+<p>局限：不支持严格意义上的多线程并发处理，实际上是以队列去处理</p>
+<hr>
+<p>参考： <a href="http://blog.csdn.net/guolin_blog/article/details/11952435/" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/11952435/</a></p>
+<pre><code>http://www.cnblogs.com/lwbqqyumidi/p/4181185.html
+</code></pre><hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/12/回调/" rel="next" title="回调">
+                <i class="fa fa-chevron-left"></i> 回调
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="大侠先锋" />
+          <p class="site-author-name" itemprop="name">大侠先锋</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xianfeng92" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/da-xia-xian-feng/activities" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">1.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-AndroidManifest-xml-声明"><span class="nav-number">1.1.</span> <span class="nav-text">Service AndroidManifest.xml 声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Started-Service生命周期及进程相关"><span class="nav-number">1.2.</span> <span class="nav-text">Started Service生命周期及进程相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service和Activity通信"><span class="nav-number">1.3.</span> <span class="nav-text">Service和Activity通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service和Thread的关系"><span class="nav-number">1.4.</span> <span class="nav-text">Service和Thread的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前台Service"><span class="nav-number">1.5.</span> <span class="nav-text">前台Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bound-Service"><span class="nav-number">1.6.</span> <span class="nav-text">Bound Service</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">大侠先锋</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+<div>
+  感谢小清妹妹的支持
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i> 访问量<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i> 总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

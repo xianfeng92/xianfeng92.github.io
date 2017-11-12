@@ -7,8 +7,24 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2017/11/12/service%E5%9F%BA%E7%A1%80/</loc>
+        <lastmod>2017-11-12T01:10:52.539Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2017/10/28/intent%E5%9F%BA%E7%A1%80/</loc>
-        <lastmod>2017-10-28T11:52:17.722Z</lastmod>
+        <lastmod>2017-11-12T01:08:46.759Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2017/11/12/%E5%9B%9E%E8%B0%83/</loc>
+        <lastmod>2017-11-12T01:06:43.535Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

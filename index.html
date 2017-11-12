@@ -280,6 +280,291 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/service基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大侠先锋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="愿历经千帆，归来仍少年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/12/service基础/" itemprop="url">
+                  service基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T09:09:10+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>Service通常总是称之为“后台服务”，其中“后台”一词是相对于前台而言的，具体是指其本身的运行并不依赖于用户可视的UI界面，因此，从实际业务需求上来理解，Service的适用场景应该具备以下条件：</p>
+<p>1.并不依赖于用户可视的UI界面（当然，这一条其实也不是绝对的，如前台Service就是与Notification界面结合使用的）；</p>
+<p>2.具有较长时间的运行特性。</p>
+<h2 id="Service-AndroidManifest-xml-声明"><a href="#Service-AndroidManifest-xml-声明" class="headerlink" title="Service AndroidManifest.xml 声明"></a>Service AndroidManifest.xml 声明</h2><p>一般而言，从Service的启动方式上，可以将Service分为Started Service和Bound Service。无论哪种具体的Service启动类型，都是通过继承Service基类自定义而来。在使用Service时，要想系统能够找到此自定义Service，无论哪种类型，都需要在AndroidManifest.xml中声明，语法格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">1 &lt;service android:enabled=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">2     android:exported=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">3     android:icon=<span class="string">"drawable resource"</span></div><div class="line">4     android:isolatedProcess=[<span class="string">"true"</span> | <span class="string">"false"</span>]</div><div class="line">5     android:label=<span class="string">"string resource"</span></div><div class="line">6     android:name=<span class="string">"string"</span></div><div class="line">7     android:permission=<span class="string">"string"</span></div><div class="line">8     android:process=<span class="string">"string"</span> &gt;</div><div class="line">9     . . .</div><div class="line">10 &lt;/service&gt;</div></pre></td></tr></table></figure>
+<h2 id="Started-Service生命周期及进程相关"><a href="#Started-Service生命周期及进程相关" class="headerlink" title="Started Service生命周期及进程相关"></a>Started Service生命周期及进程相关</h2><p>1.onCreate(Client首次startService(..)) &gt;&gt; onStartCommand &gt;&gt; onStartCommand - optional … &gt;&gt; onDestroy(Client调用stopService(..))</p>
+<p>注：onStartCommand(..)可以多次被调用，onDestroy()与onCreate()想匹配，当用户强制kill掉进程时，onDestroy()是不会执行的。</p>
+<p>2.对于同一类型的Service，Service实例一次永远只存在一个，而不管Client是否是相同的组件，也不管Client是否处于相同的进程中。</p>
+<p>3.Service通过startService(..)启动Service后，此时Service的生命周期与Client本身的什么周期是没有任何关系的，只有Client调用stopService(..)或Service本身调用stopSelf(..)才能停止此Service。当然，当用户强制kill掉Service进程或系统因内存不足也可能kill掉此Service。</p>
+<p>4.Client A 通过startService(..)启动Service后,可以在其他Client（如Client B、Client C）通过调用stopService(..)结束此Service。</p>
+<p>5.Client调用stopService(..)时，如果当前Service没有启动，也不会出现任何报错或问题，也就是说，stopService(..)无需做当前Service是否有效的判断。</p>
+<p>6.startService(Intent serviceIntent)，其中的intent既可以是显式Intent，也可以是隐式Intent，当Client与Service同处于一个App时，一般推荐使用显示Intent。当处于不同App时，只能使用隐式Intent。</p>
+<p>当Service需要运行在单独的进程中，AndroidManifest.xml声明时需要通过android:process指明此进程名称，当此Service需要对其他App开放时，android:exported属性值需要设置为true(当然，在有intent-filter时默认值就是true)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">1 &lt;service</div><div class="line">2     android:name=<span class="string">".MyService"</span></div><div class="line">3     android:exported=<span class="string">"true"</span></div><div class="line">4     android:process=<span class="string">":MyCorn"</span> &gt;</div><div class="line">5     &lt;intent-filter&gt;</div><div class="line">6         &lt;action android:name=<span class="string">"com.example.androidtest.myservice"</span> /&gt;</div><div class="line">7     &lt;/intent-filter&gt;</div><div class="line">8 &lt;/service&gt;</div></pre></td></tr></table></figure>
+<h2 id="Service和Activity通信"><a href="#Service和Activity通信" class="headerlink" title="Service和Activity通信"></a>Service和Activity通信</h2><p>Service类中有一个onBind()方法就是用于和Activity建立关联的。</p>
+<h2 id="Service和Thread的关系"><a href="#Service和Thread的关系" class="headerlink" title="Service和Thread的关系"></a>Service和Thread的关系</h2><p>Thread我们大家都知道，是用于开启一个子线程，在这里去执行一些耗时操作就不会阻塞主线程的运行。<br>然而Service是运行在主线程里的，也就是说如果你在Service里编写了非常耗时的代码，程序可能就会出现ANR。Android的后台就是指，它的运行是完全不依赖UI的。即使Activity被销毁，或者程序被关闭，只要进程还在，Service就可以继续运行。比如说一些应用程序，始终需要与服务器之间始终保持着心跳连接，就可以使用Service来实现。你可能又会问，前面不是刚刚验证过Service是运行在主线程里的么？在这里一直执行着心跳连接，难道就不会阻塞主线程的运行吗？当然会，但是我们可以在Service中再创建一个子线程，然后在这里去处理耗时逻辑就没问题了。额，既然在Service里也要创建一个子线程，那为什么不直接在Activity里创建呢？这是因为Activity很难对Thread进行控制，当Activity被销毁之后，就没有任何其它的办法可以再重新获取到之前创建的子线程的实例。而且在一个Activity中创建的子线程，另一个Activity无法对其进行操作。但是Service就不同了，所有的Activity都可以与Service进行关联，然后可以很方便地操作其中的方法，即使Activity被销毁了，之后只要重新与Service建立关联，就又能够获取到原有的Service中Binder的实例。因此，使用Service来处理后台任务，Activity就可以放心地finish，完全不需要担心无法对后台任务进行控制的情况。</p>
+<p>一个比较标准的Service就可以写成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span>  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;  </div><div class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">        <span class="meta">@Override</span>  </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">            <span class="comment">// 开始执行后台任务  </span></div><div class="line">        &#125;  </div><div class="line">    &#125;).start();  </div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId);  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyBinder</span> <span class="keyword">extends</span> <span class="title">Binder</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDownload</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                <span class="comment">// 执行具体的下载任务  </span></div><div class="line">            &#125;  </div><div class="line">        &#125;).start();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="前台Service"><a href="#前台Service" class="headerlink" title="前台Service"></a>前台Service</h2><p>Service几乎都是在后台运行的，但当系统出现内存不足情况时，就有可能会回收掉正在后台运行的Service。如果你希望Service可以一直保持运行状态，而不会由于系统内存不足的原因导致被回收，就可以考虑使用前台Service。前台Service和普通Service最大的区别就在于，它会一直有一个正在运行的图标在系统的状态栏显示，下拉状态栏后可以看到更加详细的信息，非常类似于通知的效果。</p>
+<h2 id="Bound-Service"><a href="#Bound-Service" class="headerlink" title="Bound Service"></a>Bound Service</h2><p>Bound Service的主要特性在于Service的生命周期是依附于Client的生命周期的，当Client不存在时，Bound Service将执行onDestroy，同时通过Service中的Binder对象可以较为方便进行Client-Service通信。Bound Service一般使用过程如下：</p>
+<p>1.自定义Service继承基类Service，并重写onBind(Intent intent)方法，此方法中需要返回具体的Binder对象；</p>
+<p>2.Client通过实现ServiceConnection接口来自定义ServiceConnection，并通过bindService (Intent service, ServiceConnection sc, int flags)方法将Service绑定到此Client上；</p>
+<p>3.自定义的ServiceConnection中实现onServiceConnected(ComponentName name, IBinder binder)方法，获取Service端Binder实例；</p>
+<p>4.通过获取的Binder实例进行Service端其他公共方法的调用，以完成Client-Service通信；</p>
+<p>5.当Client在恰当的生命周期（如onDestroy等）时，此时需要解绑之前已经绑定的Service，通过调用函数unbindService(ServiceConnection sc)。</p>
+<p> 在Bound Service具体使用过程中，根据onBind()方法返回的Binder对象的定义方式不同，又可以将其分为以下三种方式，且每种方式具有不同的特点和适用场景：</p>
+<p> 1) Extending the Binder class<br> 这是Bound Service中最常见的一种使用方式，也是Bound Service中最简单的一种。</p>
+<p>局限：Clinet与Service必须同属于同一个进程，不能实现进程间通信（IPC）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by zhongxianfeng on 17-11-3.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"myService"</span>;</div><div class="line">    <span class="keyword">private</span> MyBinder mBinder = <span class="keyword">new</span> MyBinder();</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mBinder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MyBinder</span> <span class="keyword">extends</span> <span class="title">Binder</span></span>&#123; </div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDownload</span><span class="params">()</span> </span>&#123;</div><div class="line">            Log.d(<span class="string">"TAG"</span>, <span class="string">"startDownload() executed"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line">        Log.d(TAG, <span class="string">"onCreate:executed"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent,<span class="keyword">int</span> flags,<span class="keyword">int</span> startId)</span></span>&#123;</div><div class="line">        Log.d(TAG, <span class="string">"onStartCommand: executed"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent,flags,startId);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>.onDestroy();</div><div class="line">        Log.d(TAG, <span class="string">"onDestroy: executed"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">OnClickListener</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MainActivity"</span>;</div><div class="line">    <span class="keyword">private</span> Button start_Service ;</div><div class="line">    <span class="keyword">private</span> Button destroy_Service;</div><div class="line">    <span class="keyword">private</span> Button bind_Service;</div><div class="line">    <span class="keyword">private</span> Button unbind_Service;</div><div class="line">    <span class="keyword">private</span> MyService.MyBinder myBinder;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ServiceConnection serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName componentName, IBinder iBinder)</span> </span>&#123;</div><div class="line">            myBinder = (MyService.MyBinder) iBinder;</div><div class="line">            myBinder.startDownload();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName componentName)</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Log.d(TAG, <span class="string">"onCreate: MainActivity thread id"</span>+Thread.currentThread().getId());</div><div class="line">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">        setSupportActionBar(toolbar);</div><div class="line"></div><div class="line">        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);</div><div class="line">        fab.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">                Snackbar.make(view, <span class="string">"Replace with your own action"</span>, Snackbar.LENGTH_LONG)</div><div class="line">                        .setAction(<span class="string">"Action"</span>, <span class="keyword">null</span>).show();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        start_Service = (Button)findViewById(R.id.start_Service);</div><div class="line">        destroy_Service = (Button)findViewById(R.id.destroy_Service);</div><div class="line">        unbind_Service = (Button)findViewById(R.id.unbind_Service);</div><div class="line">        bind_Service =(Button)findViewById(R.id.bind_Service);</div><div class="line"></div><div class="line">        bind_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        start_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        destroy_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">        unbind_Service.setOnClickListener(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></div><div class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></div><div class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></div><div class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></div><div class="line">        <span class="keyword">int</span> id = item.getItemId();</div><div class="line"></div><div class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></div><div class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (view.getId())&#123;</div><div class="line">            <span class="keyword">case</span> R.id.bind_Service:</div><div class="line">                Intent bindIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                bindService(bindIntent,serviceConnection,BIND_AUTO_CREATE);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.unbind_Service:</div><div class="line">                unbindService(serviceConnection);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.start_Service:</div><div class="line">                Intent startIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                startService(startIntent);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> R.id.destroy_Service:</div><div class="line">                Intent destroyIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                stopService(destroyIntent);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首次点击bind_Service按钮时，依次调用：onCreate —–&gt; onBind —–&gt;onServiceConnected方法。再次点击bindService按钮时，发现没有任何输出，说明MyService没有进行任何回调。<br>点击unbind_Service按钮进行unbindService()时，回调顺序为：onUnbind—–&gt; onDestroy方法</p>
+<p>2）Using a Messenger<br>Messenger，在此可以理解成”信使“，通过Messenger方式返回Binder对象可以不用考虑Clinet - Service是否属于同一个进程的问题，并且，可以实现Client - Service之间的双向通信。极大方便了此类业务需求的实现。</p>
+<p>局限：不支持严格意义上的多线程并发处理，实际上是以队列去处理</p>
+<hr>
+<p>参考： <a href="http://blog.csdn.net/guolin_blog/article/details/11952435/" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/11952435/</a></p>
+<pre><code>http://www.cnblogs.com/lwbqqyumidi/p/4181185.html
+</code></pre><hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/回调/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大侠先锋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="愿历经千帆，归来仍少年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/12/回调/" itemprop="url">
+                  回调
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T09:05:52+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是回调"><a href="#什么是回调" class="headerlink" title="什么是回调"></a>什么是回调</h2><p>回调，回调。要先有调用，才有调用者和被调用者之间的回调。所以在百度百科中是这样的：<br>软件模块之间总是存在着一定的接口，从调用方式上，可以把他们分为三类：同步调用、回调和异步调用.</p>
+<ul>
+<li><p>回调的概念：A类中调用B类中的某个方法C，然后B类中反过来调用A类中的方法D，D这个方法就叫回调方法。举个例子就是，我们想要问别人一道题，我们把题跟对方说了一下，对方说好，等我做完这道题，我就告诉你，这个时候就用到了回调，因为我们并不知道对方什么时候会做完，而是对方做完了来主动找我们。</p>
+</li>
+<li><p>同步回调<br>代码运行到某一个位置的时候，如果遇到了需要回调的代码，会在这里等待，等待回调结果返回后再继续执行。</p>
+</li>
+<li><p>异步回调<br>代码执行到需要回调的代码的时候，并不会停下来，而是继续执行，当然可能过一会回调的结果会返回回来。</p>
+</li>
+</ul>
+<h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><p>现在来分析分析下Android View的点击方法onClick()。我们知道onclick()是一个回调方法，当用户点击View就执行这个方法，我们用Button来举例好了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这个是View的一个回调接口  </span></div><div class="line"><span class="comment">/** </span></div><div class="line"><span class="comment"> * Interface definition for a callback to be invoked when a view is clicked. </span></div><div class="line"><span class="comment"> */</span>  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnClickListener</span> </span>&#123;  </div><div class="line">    <span class="comment">/** </span></div><div class="line"><span class="comment">     * Called when a view has been clicked. </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> v The view that was clicked. </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.example.zhongxianfeng.demo_service;</div><div class="line">&lt;!-- </div><div class="line">    MainActivity实现了 OnClickListener接口，并重写了其onClick方法</div><div class="line"> --&gt;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">OnClickListener</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MainActivity"</span>;</div><div class="line">    <span class="keyword">private</span> Button start_Service ;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Log.d(TAG, <span class="string">"onCreate: MainActivity thread id"</span>+Thread.currentThread().getId());</div><div class="line">   </div><div class="line">        start_Service = (Button)findViewById(R.id.start_Service);</div><div class="line">&lt;!-- </div><div class="line">MainActivity 调用View的方法,而Button extends View-----&gt;A类调用B类的某个方法 C </div><div class="line"> --&gt;</div><div class="line">        start_Service.setOnClickListener(<span class="keyword">this</span>);<span class="comment">//此处传入的是MainActivity对象，其会向上转型为OnClickListener</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (view.getId())&#123;</div><div class="line">            <span class="keyword">case</span> R.id.start_Service:</div><div class="line">                Intent startIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>,MyService.class);</div><div class="line">                startService(startIntent);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>setOnClickListener方法对应的部分源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** </span></div><div class="line"><span class="comment"> * 这个View就相当于B类 </span></div><div class="line"><span class="comment"> */</span>  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> <span class="keyword">implements</span> <span class="title">Drawable</span>.<span class="title">Callback</span>, <span class="title">KeyEvent</span>.<span class="title">Callback</span>, <span class="title">AccessibilityEventSource</span> </span>&#123;  </div><div class="line"></div><div class="line">    <span class="keyword">protected</span> OnClickListener mOnClickListener;  </div><div class="line">      </div><div class="line">    <span class="comment">/** </span></div><div class="line"><span class="comment">     * setOnClickListener()的参数是OnClickListener接口------&gt;背景三 </span></div><div class="line"><span class="comment">     * Register a callback to be invoked when this view is clicked. If this view is not </span></div><div class="line"><span class="comment">     * clickable, it becomes clickable. </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> l The callback that will run </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@see</span> #setClickable(boolean) </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">      </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnClickListener</span><span class="params">(OnClickListener l)</span> </span>&#123;  </div><div class="line">        <span class="keyword">if</span> (!isClickable()) &#123;  </div><div class="line">            setClickable(<span class="keyword">true</span>);  </div><div class="line">        &#125;  </div><div class="line">        mOnClickListener = l;  </div><div class="line">    &#125;  </div><div class="line">      </div><div class="line">    <span class="comment">/** </span></div><div class="line"><span class="comment">     * Call this view's OnClickListener, if it is defined. </span></div><div class="line"><span class="comment">     * </span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> True there was an assigned OnClickListener that was called, false </span></div><div class="line"><span class="comment">     *         otherwise is returned. </span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">performClick</span><span class="params">()</span> </span>&#123;  </div><div class="line">        sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);  </div><div class="line">  </div><div class="line">        <span class="keyword">if</span> (mOnClickListener != <span class="keyword">null</span>) &#123;  </div><div class="line">            playSoundEffect(SoundEffectConstants.CLICK);  </div><div class="line">              </div><div class="line">            <span class="comment">//这个不就是相当于B类调用A类的某个方法D，这个D就是所谓的回调方法。</span></div><div class="line">            mOnClickListener.onClick(<span class="keyword">this</span>);  <span class="comment">//此处的mOnClickListener也就是MainActivity对象</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/28/策略模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -679,7 +964,19 @@
 <li><p>标志<br>  在 Intent 类中定义的、充当 Intent 元数据的标志。 标志可以指示 Android 系统如何启动 Activity（例如，Activity 应属于哪个任务），以及启动之后如何处理（例如，它是否属于最近的 Activity 列表）。</p>
 </li>
 </ul>
-
+<hr>
+<h2 id="补充内容"><a href="#补充内容" class="headerlink" title="补充内容"></a>补充内容</h2><h2 id="1-使用Handler"><a href="#1-使用Handler" class="headerlink" title="1 使用Handler"></a>1 使用Handler</h2><h3 id="1-主线程定义Handler："><a href="#1-主线程定义Handler：" class="headerlink" title="1 主线程定义Handler："></a>1 主线程定义Handler：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Handler mHandler = <span class="keyword">new</span> Handler() &#123;  </div><div class="line">  </div><div class="line">        <span class="meta">@Override</span>  </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;  </div><div class="line">            <span class="keyword">super</span>.handleMessage(msg);  </div><div class="line">            <span class="keyword">switch</span> (msg.what) &#123;  </div><div class="line">            <span class="keyword">case</span> message1:  </div><div class="line">                <span class="comment">//完成主界面更新,拿到数据  </span></div><div class="line">                String data = (String)msg.obj;  </div><div class="line">                textView.setText(data);  </div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">            <span class="keyword">default</span>:  </div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;;</div></pre></td></tr></table></figure>
+<h3 id="2-开启一个子线程，完成耗时操作后，通知Handler完成UI更新："><a href="#2-开启一个子线程，完成耗时操作后，通知Handler完成UI更新：" class="headerlink" title="2 开启一个子线程，完成耗时操作后，通知Handler完成UI更新："></a>2 开启一个子线程，完成耗时操作后，通知Handler完成UI更新：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        Thread.sleep(<span class="number">1000</span>);<span class="comment">//进行耗时操作后，发送消息给Handler，完成UI更新</span></div><div class="line">        handler.sentEmptyMessage(<span class="number">0</span>);</div><div class="line">        <span class="comment">//如果需要传输数据，可用下面的方法</span></div><div class="line">        Message msg = <span class="keyword">new</span> Message();</div><div class="line">        msg.obj = <span class="string">"message1"</span>;</div><div class="line">        handler.sentMessage(msg);</div><div class="line">    &#125;</div><div class="line">    &#125;).start();</div></pre></td></tr></table></figure>
+<h2 id="2-Activity对象的runOnUiThread方法更新"><a href="#2-Activity对象的runOnUiThread方法更新" class="headerlink" title="2 Activity对象的runOnUiThread方法更新"></a>2 Activity对象的runOnUiThread方法更新</h2><p>该方法的源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** </span></div><div class="line"><span class="comment"> * Runs the specified action on the UI thread. If the current thread is the UI </span></div><div class="line"><span class="comment"> * thread, then the action is executed immediately. If the current thread is </span></div><div class="line"><span class="comment"> * not the UI thread, the action is posted to the event queue of the UI thread. </span></div><div class="line"><span class="comment"> * </span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> action the action to run on the UI thread </span></div><div class="line"><span class="comment"> */</span>  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">runOnUiThread</span><span class="params">(Runnable action)</span> </span>&#123;  </div><div class="line">    <span class="keyword">if</span> (Thread.currentThread() != mUiThread) &#123;  </div><div class="line">        mHandler.post(action);  </div><div class="line">    &#125; <span class="keyword">else</span> &#123;  </div><div class="line">        action.run();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在子线程中通过runOnUiThread()方法来更新UI</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        Thread.sleep(<span class="number">1000</span>);<span class="comment">//这里主要进行耗时操作</span></div><div class="line">        runOnUiThread(<span class="keyword">new</span> Runnable()&#123;</div><div class="line">               <span class="comment">//更新UI</span></div><div class="line">            &#125;);</div><div class="line">         &#125;</div><div class="line">     &#125;).start();</div></pre></td></tr></table></figure>
+<p>这里需要注意的是runOnUiThread是Activity中的方法，在线程中我们需要告诉系统是哪个activity调用，所以前面显示的指明了activity。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Activity activity = (Activity) imageView.getContext();  </div><div class="line">                activity.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">  </div><div class="line">                    <span class="meta">@Override</span>  </div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                        imageView.setImageBitmap(bitmap);  </div><div class="line">                    &#125;  </div><div class="line">                &#125;);</div></pre></td></tr></table></figure>
+<p>这种方法使用比较灵活，但如果Thread定义在其他地方，需要传递Activity对象； </p>
+<h2 id="3-View-post-Runnable-r"><a href="#3-View-post-Runnable-r" class="headerlink" title="3 View.post(Runnable r)"></a>3 View.post(Runnable r)</h2><p>一般在完成耗时操作后，可以用post方法来更新UI。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Handler mHandler;<span class="comment">//全局变量</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    mHandler = <span class="keyword">new</span> Handler();</div><div class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        Thread.sleep(<span class="number">1000</span>);<span class="comment">//在子线程有一段耗时操作</span></div><div class="line">                        mHandler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                                  <span class="comment">//更新UI</span></div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div><div class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结：UI的更新必须在主线程中完成，所以不管上述那种方法，都是将更新UI的消息发送到了主线程的消息对象，让主线程做处理。"><a href="#总结：UI的更新必须在主线程中完成，所以不管上述那种方法，都是将更新UI的消息发送到了主线程的消息对象，让主线程做处理。" class="headerlink" title="总结：UI的更新必须在主线程中完成，所以不管上述那种方法，都是将更新UI的消息发送到了主线程的消息对象，让主线程做处理。"></a>总结：UI的更新必须在主线程中完成，所以不管上述那种方法，都是将更新UI的消息发送到了主线程的消息对象，让主线程做处理。</h2>
           
         
       
@@ -1441,307 +1738,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/15/Python基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="大侠先锋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="愿历经千帆，归来仍少年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/15/Python基础/" itemprop="url">
-                  Python基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T19:28:51+08:00">
-                2017-10-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>闲着无聊,整理点python基础知识,顺便也当熟悉Markdown的语法规则.ps:今天才发现利用Chrome上的LiveReload+Subline Text,可以本地实时测试博客网页,爽歪歪呀.</p>
-<h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h1><h2 id="1-Python有四种数据类型-分别为整数-长整数-浮点数以及复数"><a href="#1-Python有四种数据类型-分别为整数-长整数-浮点数以及复数" class="headerlink" title="1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数"></a>1. Python有四种数据类型,分别为整数,长整数,浮点数以及复数</h2><h2 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2. 字符串"></a>2. 字符串</h2><ul>
-<li>python中的字符串可以用单引号或者双引号来表示</li>
-<li>字符串前面加r或者R,如字符串r”see you again \n”,则\n会显示出来</li>
-<li>对于“see” “you” “again”,python会将其自动转换为“see you again”</li>
-<li>类似于Java,Python中字符串也是不可变的</li>
-</ul>
-<h2 id="3-对象"><a href="#3-对象" class="headerlink" title="3.对象"></a>3.对象</h2><p>python中Everything is object</p>
-<h2 id="4-缩进"><a href="#4-缩进" class="headerlink" title="4.缩进"></a>4.缩进</h2><p>python使用4个空格来缩进代码.例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def fun(n):</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">    	<span class="built_in">print</span>(<span class="string">"the number of n ="</span>,n)</div></pre></td></tr></table></figure></p>
-<h1 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h1><p>Python中使用def关键字定义函数,其格式为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def 函数名(参数列表): <span class="comment">#参数可为空</span></div><div class="line">    函数体</div></pre></td></tr></table></figure></p>
-<h2 id="1-可变参数列表和默认参数"><a href="#1-可变参数列表和默认参数" class="headerlink" title="1.可变参数列表和默认参数"></a>1.可变参数列表和默认参数</h2><p>Python中可以定义可变参数的函数:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">def sum_all(*args):</div><div class="line">    sum = 0</div><div class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> args:</div><div class="line">        sun += x</div><div class="line">    <span class="built_in">return</span> sum</div><div class="line"><span class="built_in">print</span>(sum_all(10,19,12) <span class="comment"># 输出 41</span></div><div class="line"><span class="built_in">print</span>(sum_all(19,1,3)) <span class="comment">#输出23</span></div><div class="line"></div><div class="line">def fun(a,b=9,c=8):</div><div class="line">    <span class="built_in">print</span>(a+b+c)</div><div class="line">fun(1) <span class="comment">#输出 18</span></div><div class="line">fun(1,2) <span class="comment">#输出 11</span></div><div class="line">fun(1,2,3) <span class="comment">#输出 6</span></div></pre></td></tr></table></figure></p>
-<p>#3. 数据结构<br>Python中常见的三种数据结构:list,tuple,dict</p>
-<h2 id="3-1-list"><a href="#3-1-list" class="headerlink" title="3.1 list"></a>3.1 list</h2><p>list是一种可变的有序列表,常见操作如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ L = [<span class="string">'love'</span>,<span class="string">'the'</span>,<span class="string">'way'</span>,<span class="string">'you'</span>,<span class="string">'lie'</span>]</div><div class="line">$ L2 = [<span class="string">'lose'</span>,<span class="string">'yourself'</span>]</div><div class="line">$ L.append9<span class="string">'Eminem'</span>) <span class="comment"># 在L列表后面添加一个字符串 Eminem 项</span></div><div class="line">$ L.extend(L2) <span class="comment"># 用给入的L2列表将L列表接长</span></div><div class="line">$ L2.insert(0,<span class="string">'Eminem'</span>) <span class="comment"># 在L2的第一个元素处插入Eminem</span></div><div class="line">$ L.remove(<span class="string">'lie'</span>) <span class="comment"># 移除L列表中第一个值为lie的元素</span></div><div class="line">$ L.pop(2) <span class="comment"># 删除L列表中第三个元素</span></div><div class="line">$ L.index(<span class="string">'love'</span>) <span class="comment"># 返回L列表中第一个值为love的索引</span></div><div class="line">$ L.count(“love”) <span class="comment"># 统计L列表中love出现的次数</span></div></pre></td></tr></table></figure></p>
-<ul>
-<li><p>list当作stack</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ stack = [<span class="string">'i'</span>,<span class="string">'need'</span>,<span class="string">'a'</span>,<span class="string">'doctor'</span>]</div><div class="line">$ stack.append(<span class="string">'tupac'</span>) <span class="comment"># push 'tupac' into stack</span></div><div class="line">$ stack,append(<span class="string">'eminem'</span>) <span class="comment"># push 'eminem' into satck</span></div><div class="line">$ stack.pop() <span class="comment"># pop the 'eminem' --------后进先出</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>list当作queue<br>可以使用list来实现queue,queue特性是先入先出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">未完......</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/15/Mac系统上搭建hexo-github环境/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="大侠先锋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="愿历经千帆，归来仍少年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/15/Mac系统上搭建hexo-github环境/" itemprop="url">
-                  Mac系统上搭建hexo-github环境
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T16:25:07+08:00">
-                2017-10-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-Hexo简介"><a href="#1-Hexo简介" class="headerlink" title="1. Hexo简介"></a>1. Hexo简介</h1><p>   Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Node.js</div><div class="line">Git</div></pre></td></tr></table></figure></p>
-<h1 id="2-nodejs和git的安装"><a href="#2-nodejs和git的安装" class="headerlink" title="2. nodejs和git的安装"></a>2. nodejs和git的安装</h1><p>   Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。 Node.js 使用高效、轻量级的事件驱动、非阻塞 I/O)模型。它的包生态系统，npm，是目前世界上最大的开源库生态系统。我们可以直接从官网下载最新的nodejs 并安装（<a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">https://nodejs.org/zh-cn/</a>).</p>
-<p>   除此之外,在Mac上还可以通过使用 Homebrew 安装 Node.js，具体命令:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ brew update</div><div class="line">$ brew install node</div></pre></td></tr></table></figure></p>
-<p>   安装后，Terminal依次输入：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node -v  </div><div class="line">$ npm -v</div></pre></td></tr></table></figure></p>
-<p>   来查看电脑上安装的版本号,确保其版本号为较新的，这样使用npm安装hexo才不会出现一系列问题。</p>
-<p>   如果node为旧版本，可以通过Terminal：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install -g n <span class="comment"># 管理nodejs的版本</span></div><div class="line">$ sudo n latest <span class="comment"># 升级到最新版本</span></div><div class="line">$ sudo n stable <span class="comment"># 升级到稳定版</span></div></pre></td></tr></table></figure></p>
-<p>   git的安装相对简单,在Mac上可以使用Homebrew来安装:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install git</div></pre></td></tr></table></figure></p>
-<h1 id="3-安装-Hexo"><a href="#3-安装-Hexo" class="headerlink" title="3. 安装 Hexo"></a>3. 安装 Hexo</h1><p>   所有必备的应用程序安装完成后，在终端依次输入并回车:</p>
-<p>   Terminal:<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ mkdir hexo</div><div class="line">$ <span class="built_in">cd</span> /hexo</div><div class="line">$ npm install -g hexo-cli</div><div class="line">$ hexo init blog</div><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div><div class="line">$ hexo g -d  <span class="comment"># 生成静态文件并部署博客到远端（比如github, heroku等平台）</span></div></pre></td></tr></table></figure></p>
-<p>   打开浏览器，输入<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> ，看到以下页面说明hexo环境安装成功。</p>
-<p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/localhost.jpg" alt=""></p>
-<p>Ps.安装好了hexo以后,注册一个github账号,创建一个repo,将hexo和repo关联起来.最后效果图如下:</p>
-<p><img src="/2017/10/15/Mac系统上搭建hexo-github环境/xianfeng.jpg" alt=""></p>
-<h1 id="4-个性化Blog"><a href="#4-个性化Blog" class="headerlink" title="4. 个性化Blog"></a>4. 个性化Blog</h1><p>在Hexo中有两份主要的配置文件,其名称都为_config.yml.其中,一份位于站点根目录下,主要包含Hexo本身的配置(站点配置文件);另一份位于主题目录下,这份配置由主题作者提供,主要用于配置主题相关的选项(主题配置文件).</p>
-<h2 id="1-Next主题"><a href="#1-Next主题" class="headerlink" title="1. Next主题"></a>1. Next主题</h2><p>Next主题的安装:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> your-hexo-site</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next theme</div></pre></td></tr></table></figure></p>
-<p>然后在站点的配置文件中修改:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: next</div></pre></td></tr></table></figure></p>
-<h2 id="2-验证主题"><a href="#2-验证主题" class="headerlink" title="2.验证主题"></a>2.验证主题</h2><p>启动本地站点:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo c <span class="comment">#清除站点缓存</span></div><div class="line">$ hexo s</div></pre></td></tr></table></figure></p>
-<p>当命令行输出一下信息表示站点正确运行:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure></p>
-<h2 id="3-主题设定"><a href="#3-主题设定" class="headerlink" title="3.主题设定"></a>3.主题设定</h2><p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p>
-<ul>
-<li>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白.</li>
-<li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li>
-<li>Pisces - 双栏 Scheme，小家碧玉似的清新,小清新,我喜欢.</li>
-</ul>
-<p>关于博客的菜单,侧栏,站点描述等设置,可以参考:<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">http://theme-next.iissnan.com/getting-started.html</a></p>
-<h3 id="1-头像设置"><a href="#1-头像设置" class="headerlink" title="1. 头像设置"></a>1. 头像设置</h3><p>博客怎能没有一个有个性的头像呢?然而头像设置让我在折腾了好久好久,周六晚上弄到半夜四点多,最惨的是还没有弄好~醉了.具体步骤如下:</p>
-<ul>
-<li>选择一个中意头像.如:love.jpg</li>
-<li>打开主题配置文件_config.yml</li>
-<li>找到如下信息,并进行配置:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">custom_log:</div><div class="line">  enabled: ture </div><div class="line">  image: images/love.jpg <span class="comment"># 实际在image的love.jpg 要改为 avatar.gif.</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>不知道为啥要这样.</p>
-<h3 id="2-blog中图片上传"><a href="#2-blog中图片上传" class="headerlink" title="2. blog中图片上传"></a>2. blog中图片上传</h3><ul>
-<li>将主题配置文件_config.yml 里的post_asset_folder:这个选项设置为true<br>此时运行下面命令生成博客时:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo n demo</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在/source/_posts文件下除了demo.md,还会有一个demo文件夹</p>
-<ul>
-<li><p>在博客的根目录下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-asset-image --save <span class="comment"># 有点慢,耐心等待</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在demo.md中想要引入love.jpg图片时,只需要将love.jpg放到demo文件夹下,然后demo.md中写:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![你想输入的替代文字](love.jpg)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1791,7 +1787,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
