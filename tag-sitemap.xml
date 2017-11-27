@@ -30,13 +30,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/design-pattern/</loc>
-        <lastmod>2017-10-28T10:55:18.937Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/java/</loc>
         <lastmod>2017-11-12T01:06:43.535Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -59,7 +52,7 @@
 
     <url>
         <loc>http://yoursite.com/tags/Design-pattern/</loc>
-        <lastmod>2017-11-26T07:55:27.923Z</lastmod>
+        <lastmod>2017-11-27T14:55:34.263Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
